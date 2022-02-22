@@ -2,6 +2,9 @@ var validator = require("validator");
 
 module.exports = ({ args, settings, message }) => {
   console.log(args);
+
+  let itemNameToCheck = args.slice(2).join("");
+  let readableItemName = args.slice(2).join(" ");
   let itemPrice = args[1];
   let itemName = args.slice(2).join("+");
   let cancelURL = "";
@@ -15,7 +18,10 @@ module.exports = ({ args, settings, message }) => {
     : null;
 
   console.log(itemName);
-  if (!validator.isBase64(itemName, { urlSafe: true }) || itemName == "") {
+  if (
+    !validator.isBase64(itemNameToCheck, { urlSafe: true }) ||
+    itemName == ""
+  ) {
     console.log("Item Name / Service is not in a valid format");
     message.channel.send("Item Name / Service is not in a valid format");
     return;
@@ -27,13 +33,7 @@ module.exports = ({ args, settings, message }) => {
     return;
   }
 
-  let url = `${args
-    .slice(2)
-    .join(
-      " "
-    )} (R${itemPrice} Once Off) - https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=${
-    settings.payfastKey
-  }&item_name=${itemName}&amount=${itemPrice}${returnURL}${cancelURL}`;
+  let url = `${readableItemName} (R${itemPrice} Once Off) - https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=${settings.payfastKey}&item_name=${itemName}&amount=${itemPrice}${returnURL}${cancelURL}`;
 
   message.channel.send(url);
 };

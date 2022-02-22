@@ -1,6 +1,8 @@
 var validator = require("validator");
 
 module.exports = ({ args, settings, message }) => {
+  let readableItemName = args.slice(3).join(" ");
+  let itemNameToCheck = args.slice(3).join("");
   let itemName = args.slice(3).join("+");
   let itemPrice = args[1];
   let itemRecurring = args[2];
@@ -14,7 +16,10 @@ module.exports = ({ args, settings, message }) => {
     ? (returnURL = "&return_url=" + encodeURI(settings.returnurl))
     : null;
 
-  if (!validator.isBase64(itemName, { urlSafe: true }) || itemName == "") {
+  if (
+    !validator.isBase64(itemNameToCheck, { urlSafe: true }) ||
+    itemName == ""
+  ) {
     console.log("Item Name / Service is not in a valid format");
     message.channel.send("Item Name / Service is not in a valid format");
     return;
@@ -26,15 +31,7 @@ module.exports = ({ args, settings, message }) => {
     return;
   }
 
-  let url = `${args
-    .slice(4)
-    .join(
-      " "
-    )} ${itemName} - (Initial Amount: R${itemPrice} ) (Recurring Monthly: R${itemRecurring}) - https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=${
-    settings.payfastKey
-  }&item_name=${itemName}&amount=${itemPrice}${returnURL}${cancelURL}&cycles=0&frequency=3&m_payment_id=pay_now_${
-    settings.payfastKey
-  }&subscription_type=1&recurring_amount=${itemRecurring}`;
+  let url = `${readableItemName} - (Initial Amount: R${itemPrice} ) (Recurring Monthly: R${itemRecurring}) - https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=${settings.payfastKey}&item_name=${itemName}&amount=${itemPrice}${returnURL}${cancelURL}&cycles=0&frequency=3&m_payment_id=pay_now_${settings.payfastKey}&subscription_type=1&recurring_amount=${itemRecurring}`;
 
   message.channel.send(url);
 };

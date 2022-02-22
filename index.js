@@ -11,6 +11,7 @@ const payfastSettings = require("./Schema/payfastSettings-schema");
 
 const token = process.env.TOKEN;
 const mongoURL = process.env.MONGO_URI;
+
 let payfastSettingsCache = {};
 const client = new Client({
   intents: [

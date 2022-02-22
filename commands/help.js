@@ -1,8 +1,17 @@
 const lineBreak = {
   name: "\u200B",
-  value: "------Command List------",
+  value: "------Setup Commands------",
 };
 
+const pfBreak = {
+  name: "\u200B",
+  value: "------Payfast Commands------",
+};
+
+const gBreak = {
+  name: "\u200B",
+  value: "------Glossary------",
+};
 const space = { name: "\u200B", value: " " };
 const { MessageEmbed } = require("discord.js");
 
@@ -21,6 +30,7 @@ module.exports = ({ message }) => {
 
     .addFields(
       lineBreak,
+
       {
         name: "Set Merchent ID",
         value:
@@ -33,6 +43,39 @@ module.exports = ({ message }) => {
         value: "View current Merchent ID for this server" + "```!myID```",
         inline: false,
       },
+
+      {
+        name: "Set Return URL (Optional)",
+        value:
+          "Set the Return URL your customer will visit upon completing payment" +
+          "```!setReturnURL```",
+        inline: false,
+      },
+
+      {
+        name: "Set Cancel URL (Optional)",
+        value:
+          "Set the Return URL your customer will visit upon completing payment" +
+          "```!setCancelURL```",
+        inline: false,
+      },
+
+      {
+        name: "Help",
+        value:
+          "View all available commands and how to use them" + "```!help```",
+        inline: false,
+      },
+
+      {
+        name: "Help",
+        value:
+          "View all available commands and how to use them" + "```!help```",
+        inline: false,
+      },
+
+      pfBreak,
+
       {
         name: "Once Off Payment Link Generator",
 
@@ -45,15 +88,33 @@ module.exports = ({ message }) => {
       {
         name: "Monthly Subscription Link Generator",
         value:
-          "Create a monthly recurring payment request URL" +
+          "Create a infinite monthly recurring payment request URL" +
           "```!subscription <inital amount> <recurring amount> <name of product/service>```",
         inline: false,
       },
       {
-        name: "Help",
+        name: "Custom Subscription Link Generator",
         value:
-          "View all available commands and how to use them" +
-          "```!subscription <inital amount> <recurring amount> <name of product/service>```",
+          "Create a custom recurring payment request URL with frequncy and cycles" +
+          "```!subscription <inital amount> <recurring amount> <cycles> <frequency> <name of product/service>```",
+        inline: false,
+      },
+      gBreak,
+      {
+        name: "Subscription Frequency Types",
+        value:
+          "When will the recurring amount be charged" +
+          "```Monthly```" +
+          "```Quarterly```" +
+          "```Biannually```" +
+          "```Annually```",
+        inline: true,
+      },
+      {
+        name: "Cycles",
+        value:
+          "How many times will this subscriptions occur (eg. 5 with frequency type monthly = 5 months) ***!Tip: 0 = infinite ",
+
         inline: false,
       }
     );

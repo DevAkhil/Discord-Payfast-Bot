@@ -1,6 +1,7 @@
 const onceoff = require("./commands/onceoff");
 const myid = require("./commands/myID");
 const subscription = require("./commands/subscription");
+const customsubscription = require("./commands/customSubscription");
 const setid = require("./commands/setID");
 const removeid = require("./commands/removeID");
 const help = require("./commands/help");
@@ -21,6 +22,7 @@ const commands = {
   setcancelurl,
   myurl,
   setreturnurl,
+  customsubscription,
 };
 
 let commandData = {
@@ -64,11 +66,11 @@ module.exports = async (message) => {
   }
 
   function executeCommand() {
-    if (command == "help" || command == "setID") {
+    if (command == "help" || command == "setid") {
       return commands[command]?.(commandData);
     }
 
-    if (commandData.settings.payfastKey == null) {
+    if (commandData?.settings?.payfastKey == null) {
       if (commands[command] != null) {
         return channel.send("Please set Merchent ID before using this command");
       } else {
