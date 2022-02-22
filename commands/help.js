@@ -67,13 +67,6 @@ module.exports = ({ message }) => {
         inline: false,
       },
 
-      {
-        name: "Help",
-        value:
-          "View all available commands and how to use them" + "```!help```",
-        inline: false,
-      },
-
       pfBreak,
 
       {
@@ -96,7 +89,7 @@ module.exports = ({ message }) => {
         name: "Custom Subscription Link Generator",
         value:
           "Create a custom recurring payment request URL with frequncy and cycles" +
-          "```!subscription <inital amount> <recurring amount> <cycles> <frequency> <name of product/service>```",
+          "```!customSubscription <inital amount> <recurring amount> <cycles> <frequency> <name of product/service>```",
         inline: false,
       },
       gBreak,
